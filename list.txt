@@ -1,0 +1,26 @@
+sudo apt-get -y install emacs
+
+lm-sensors 
+sudo sensors-detect
+watch sensors
+
+# https://wiki.debian.org/HowTo/CpuFrequencyScaling
+
+sudo apt-get -y install vlc
+
+
+#REPO KEY ADDING:
+#chrome
+wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+
+
+
+sudo apt-get -y install google-chrome-stable 
+sudo apt-get -y install nicotine
+
+
+
+#SETUPS:
+#remove screen lock 
+dconf write /org/gnome/desktop/screensaver/lock-enabled false
