@@ -1,3 +1,5 @@
+
+
 sudo apt-get -y install emacs
 
 lm-sensors 
@@ -6,21 +8,43 @@ watch sensors
 
 # https://wiki.debian.org/HowTo/CpuFrequencyScaling
 
-sudo apt-get -y install vlc
+
 
 
 #REPO KEY ADDING:
 #chrome
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' #forse si crea un duplicato cosi', forse perche' chrome lo impone quando si installa
+
+#Add the Spotify repository --- non funziona 
+#sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
+#echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
 
 
 
+
+#chrome
 sudo apt-get -y install google-chrome-stable 
-sudo apt-get -y install nicotine
-
+#Nicotine
+#sudo apt-get -y install nicotine  #----> disinstallato e reinstallato soulseek vero
+# vlc
+sudo apt-get -y install vlc
 
 
 #SETUPS:
 #remove screen lock 
 dconf write /org/gnome/desktop/screensaver/lock-enabled false
+#after: http://askubuntu.com/questions/177348/how-do-i-disable-the-screensaver-lock
+#disable screen blackout
+gsettings set org.gnome.desktop.session idle-delay <seconds> #(0 to disable)
+#To disable the screen lock:
+gsettings set org.gnome.desktop.screensaver lock-enabled false
+#default list view
+gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view'
+
+
+## SKYPE7
+#enable multiarchitecture (perche' sei su 64 bit)
+sudo dpkg --add-architecture i386
+sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+sudo apt-get install skype

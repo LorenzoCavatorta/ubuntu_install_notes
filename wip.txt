@@ -1,0 +1,24 @@
+#possibile fix per spotify, manca ancora una parte finale, non riesce a loggarsi
+
+
+sudo apt-get purge spotify-client
+sudo apt-get autoremove
+sudo add-apt-repository --remove 'deb http://repository.spotify.com stable non-free'
+sudo echo deb http://repository.spotify.com testing non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt-get update
+sudo apt-get install spotify-client
+
+
+#audacious --> non ho capito come funzioan la library
+sudo apt-get -y install audacious
+
+sudo add-apt-repository ppa:kubuntu-ppa/backports
+sudo apt-get install amarok
+
+
+
+## SKYPE7
+#enable multiarchitecture (perche' sei su 64 bit)
+sudo dpkg --add-architecture i386
+sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+sudo apt-get install skype
