@@ -1,0 +1,20 @@
+directory: ~/music
+library: ~/test_musiclibrary.blb
+
+import:
+   move: no
+   copy: yes
+   write: yes
+
+
+paths:
+   default: $albumartist/[$year] $album%aunique{}/$artist -$track- $title [$bitrate]
+   singleton: Non-Album/$artist/$title
+   comp: Compilations/$album%aunique{}/$track $title
+
+plugins: ftintitle
+
+ftintitle:
+   auto: yes #Enable metadata rewriting during import. Default: yes.
+   drop: no  #Remove featured artists entirely instead of adding them to the title field. Default: no.
+   format: (ft {0}) #Defines the format for the featuring X part of the new title field. In this format the {0} is used to define where the featured artists are placed. Default: feat. {0}

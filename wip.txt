@@ -22,3 +22,54 @@ sudo apt-get install amarok
 sudo dpkg --add-architecture i386
 sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 sudo apt-get install skype
+
+
+
+#plex... no official repo
+cd /var/cache/apt/archives/
+wget -Oxelp https://plex.tv/download
+wget -N `sed -e '/amd64.deb/!d;/Ubuntu/!d;s/.*href="//;s/".*//' xelp`
+sudo dpkg -i plex*
+sudo apt-get install -f
+
+
+#mounti la partizione, poi fai
+mount | grep media
+# per me e' /dev/sda3
+#poi ti cerchi il UUID
+ls -al /dev/disk/by-uuid/
+#per me AA2E6BAF2E6B72ED
+#/usr/bin/udisks --mount /dev/disk/by-uuid/AA2E6BAF2E6B72ED #non funziona perche' non e' installato
+
+sudo emacs /etc/fstab
+#nel mio caso ho aggiunto
+UUID=AA2E6BAF2E6B72ED            /media/lollo/media   ntfs  auto            0       0
+
+
+
+sudo apt-get install vim
+sudo apt-get installu cmus
+
+apt-get install python-dev python-pip
+#sudo apt-get install beets #might be useless if installed with pip
+sudo pip install beets
+echo 'eval "$(beet completion)"' >> .bashrc
+#in piu' forse ti serve questo http://bash-completion.alioth.debian.org/
+#plugins
+pip install pylast
+
+
+
+# from http://codeinthehole.com/writing/the-most-important-command-line-tip-incremental-history-searching-with-inputrc/
+
+#in .bashrc
+#large history file
+export HISTSIZE=1000000
+export HISTFILESIZE=1000000000
+
+#in .inputrc
+#trucco tastiera ricerca rapida (versione semplice di Ctrl+R)
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char
