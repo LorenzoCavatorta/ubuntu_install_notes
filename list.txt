@@ -48,3 +48,6 @@ gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view'
 sudo dpkg --add-architecture i386
 sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 sudo apt-get install skype
+
+
+sudo apt-get install diodon
