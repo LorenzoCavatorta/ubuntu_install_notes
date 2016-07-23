@@ -49,6 +49,8 @@ UUID=AA2E6BAF2E6B72ED            /media/lollo/media   ntfs  auto            0   
 
 sudo apt-get install vim
 sudo apt-get installu cmus
+sudo apt-get install trash-cli 
+
 
 apt-get install python-dev python-pip
 #sudo apt-get install beets #might be useless if installed with pip
@@ -57,8 +59,8 @@ echo 'eval "$(beet completion)"' >> .bashrc
 #in piu' forse ti serve questo http://bash-completion.alioth.debian.org/
 #plugins
 pip install pylast
-
-
+pip install request
+pip install discogs-client
 
 # from http://codeinthehole.com/writing/the-most-important-command-line-tip-incremental-history-searching-with-inputrc/
 
@@ -73,3 +75,12 @@ export HISTFILESIZE=1000000000
 "\e[B": history-search-forward
 "\e[C": forward-char
 "\e[D": backward-char
+
+
+#tentativo di cambiare la default folder view:
+from:http://askubuntu.com/questions/134371/how-do-i-set-default-view-to-list-in-nautilus-file-manager
+For Ubuntu 12.04 and similar Unity-based UI, edit /usr/share/glib-2.0/schemas/org.gnome.nautilus.gschema.xml file: find the default-folder-viewer key and replace its <default> tag value by 'list-view'
+
+#or
+#from http://askubuntu.com/questions/254191/how-to-change-the-default-view-of-folders-to-detailed-view
+gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view'
