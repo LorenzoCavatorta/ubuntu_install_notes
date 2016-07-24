@@ -35,6 +35,15 @@ sudo apt-get -y install google-chrome-stable
 sudo apt-get -y install vlc
 
 
+#audacity
+sudo apt-get install audacity
+sudo apt-get install screen
+sudo apt-get install ffmpeg
+sudo apt-get install beets
+#sudo apt-get install deluge # non funziona out of the box ne' command line ne' web
+sudo apt-get install gimp
+
+
 #SETUPS:
 #remove screen lock 
 dconf write /org/gnome/desktop/screensaver/lock-enabled false

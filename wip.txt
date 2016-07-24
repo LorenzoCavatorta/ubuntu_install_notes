@@ -15,7 +15,10 @@ sudo apt-get -y install audacious
 sudo add-apt-repository ppa:kubuntu-ppa/backports
 sudo apt-get install amarok
 
-
+#drobpox
+#https://www.dropbox.com/en_GB/install?os=lnx
+cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+~/.dropbox-dist/dropboxd
 
 ## SKYPE7
 #enable multiarchitecture (perche' sei su 64 bit)
