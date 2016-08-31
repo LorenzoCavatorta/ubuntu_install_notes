@@ -1,20 +1,43 @@
 
 
 sudo apt-get -y install emacs
+sudo apt-get install audacity
+sudo apt-get install screen
+sudo apt-get install ffmpeg
+sudo apt-get install beets
+sudo apt-get -y install vlc
+sudo apt-get install gimp
+ sudo apt-get install ffmpeg
 
+sudo add-apt-repository ppa:mystic-mirage/pycharm
+sudo apt-get install pycharm-community
+
+#chrome
+sudo apt-get -y install google-chrome-stable
+#chrome
+wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' #forse si crea un duplicato cosi', forse perche' chrome lo impone quando si installa
+
+#stuff that doesn't work or you don't actually need
+#sudo apt-get install deluge # non funziona out of the box ne' command line ne' web
+#sudo apt-get install diodon #clipboard manager...
+#sudo apt-get -y install nicotine  #----> disinstallato e reinstallato soulseek vero
+
+
+
+
+
+
+#tricks and tips
 lm-sensors 
 sudo sensors-detect
 watch sensors
-
 # https://wiki.debian.org/HowTo/CpuFrequencyScaling
 
 
 
 
 #REPO KEY ADDING:
-#chrome
-wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' #forse si crea un duplicato cosi', forse perche' chrome lo impone quando si installa
 
 #Add the Spotify repository --- non funziona 
 #sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
@@ -27,21 +50,13 @@ sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /et
 sudo apt-get install virtualbox
 
 
-#chrome
-sudo apt-get -y install google-chrome-stable 
-#Nicotine
-#sudo apt-get -y install nicotine  #----> disinstallato e reinstallato soulseek vero
-# vlc
-sudo apt-get -y install vlc
 
 
-#audacity
-sudo apt-get install audacity
-sudo apt-get install screen
-sudo apt-get install ffmpeg
-sudo apt-get install beets
-#sudo apt-get install deluge # non funziona out of the box ne' command line ne' web
-sudo apt-get install gimp
+
+
+
+
+
 
 
 #SETUPS:
@@ -63,8 +78,6 @@ sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) pa
 sudo apt-get install skype
 
 
-sudo apt-get install diodon
 
-sudo add-apt-repository ppa:mystic-mirage/pycharm
-sudo apt-get install pycharm-community
+
 
