@@ -1,7 +1,10 @@
-from tryconfig import programs
+from tryconfig import all_programs
 from tryconfig import defaults
+from tryconfig import chosen_programs
+from subprocess import STDOUT, check_call
+import os
 
-class pr:
+class program:
 
     def __init__(self, s, program_dict):
         self.name = s
@@ -26,17 +29,14 @@ class pr:
             l.append(self.get_attr(i))
         return ' '.join(l)
 
+    def install(self):
+        stdlog = os.popen(self.build_install_command())
 
-p1 = pr('emacs',programs['emacs'])
-print(p1.name)
-print(p1.config)
-#print(p1.get_attr('realname'))
-#print(p1.get_real_name())
-#print(p1.get_install_command())
-#print(p1.is_sudo())
-print(p1.build_install_command())
 
-s = p1.name + 'test'
-print(s)
-
-print('hellp')
+i = 1
+for p in chosen_programs:
+    prog = program( p , all_programs[p])
+    print(prog.build_install_command())
+    if i == 1:
+        prog.install()
+    i += 1
