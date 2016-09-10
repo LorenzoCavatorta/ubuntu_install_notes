@@ -1,6 +1,8 @@
 #programs = {'em': {'realname':'emacs'} }
 
-chosen_programs = ['emacs', 'audacity', 'mp3_dec', 'pycharm']
+#chosen_programs = ['emacs', 'audacity', 'mp3_dec', 'pycharm']
+chosen_programs = ['sublime']
+#chosen_programs = ['emacs']
 
 all_programs = {
     'emacs'     : {},
@@ -9,7 +11,8 @@ all_programs = {
     'beets'     : {},
     'vlc'       : {},
     'gimp'      : {},
-    'pycharm'   : {'realname' : 'pycharm-community', 'repo' : 'ppa:mystic-mirage/pycharm'}
+    'pycharm'   : {'realname' : 'pycharm-community', 'repo' : 'ppa:mystic-mirage/pycharm'},
+    'sublime'   : {'realname' : 'sublime-text-installer', 'repo' : 'ppa:webupd8team/sublime-text-3'}
             }
 
 defaults = {'install_command' : 'apt-get -y install',

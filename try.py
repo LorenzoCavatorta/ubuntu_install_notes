@@ -2,6 +2,9 @@ from tryconfig import all_programs
 from tryconfig import defaults
 from tryconfig import chosen_programs
 from subprocess import STDOUT, check_call
+from types import *
+
+import pdb
 import os
 
 class bashcommand:
@@ -9,11 +12,21 @@ class bashcommand:
     def __init__(self,s=''):
         self.command = s
 
-    def add_list(self,l):
-        self.command + ' '.join(l)
+    def __add__(self, other):
+        if type(other) is StringType:
+            self.command += ' ' + other
+        if type(other) is ListType:
+            self.command += ' ' + ' '.join(l)
 
-    def run(self):
-        stdlog = os.popen(self.command)
+    def run(self, choseprintlog=False):
+        self.stdlog = os.popen(self.command)
+        if choseprintlog:
+            self.printlog()
+
+    def printlog(self):
+        print(self.stdlog)
+        for l in self.stdlog:
+            print l
 
 class program:
 
@@ -42,7 +55,8 @@ class program:
 
     def run_install(self):
         installer = bashcommand(self.build_install_command())
-        installer.run()
+        installer.run(True)
+        installer.printlog()
 
 
 
@@ -56,17 +70,18 @@ class program:
                 command = bashcommand(c)
                 command.run()
             repo_adder = bashcommand(self.get_attr('repo_add_command'))
-            repo_adder.add_list(repo)
+            repo_adder + repo
+            repo_adder.run(True)
+            #pdb.set_trace()
             updater = bashcommand(self.get_attr('repo_update_command'))
             updater.run()
 
     def install(self):
+        self.add_repo()
         self.run_install()
 
-i = 1
+
 for p in chosen_programs:
     prog = program( p , all_programs[p])
     print(prog.build_install_command())
-    if i == 4:
-        prog.install()
-    i += 1
+    prog.install()
