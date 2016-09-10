@@ -7,7 +7,7 @@ sudo apt-get install ffmpeg
 sudo apt-get install beets
 sudo apt-get -y install vlc
 sudo apt-get install gimp
- sudo apt-get install ffmpeg
+sudo apt-get install ffmpeg
 
 sudo add-apt-repository ppa:mystic-mirage/pycharm
 sudo apt-get install pycharm-community

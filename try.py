@@ -4,6 +4,17 @@ from tryconfig import chosen_programs
 from subprocess import STDOUT, check_call
 import os
 
+class bashcommand:
+
+    def __init__(self,s=''):
+        self.command = s
+
+    def add_list(self,l):
+        self.command + ' '.join(l)
+
+    def run(self):
+        stdlog = os.popen(self.command)
+
 class program:
 
     def __init__(self, s, program_dict):
@@ -29,14 +40,33 @@ class program:
             l.append(self.get_attr(i))
         return ' '.join(l)
 
-    def install(self):
-        stdlog = os.popen(self.build_install_command())
+    def run_install(self):
+        installer = bashcommand(self.build_install_command())
+        installer.run()
 
+
+
+    def add_repo(self):
+        repo = self.get_attr('repo')
+        if repo == defaults['repo']:
+            return
+        else:
+            pre = self.get_attr('repo_prequel')
+            for c in pre:
+                command = bashcommand(c)
+                command.run()
+            repo_adder = bashcommand(self.get_attr('repo_add_command'))
+            repo_adder.add_list(repo)
+            updater = bashcommand(self.get_attr('repo_update_command'))
+            updater.run()
+
+    def install(self):
+        self.run_install()
 
 i = 1
 for p in chosen_programs:
     prog = program( p , all_programs[p])
     print(prog.build_install_command())
-    if i == 1:
+    if i == 4:
         prog.install()
     i += 1
