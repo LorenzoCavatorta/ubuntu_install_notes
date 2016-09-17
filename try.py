@@ -141,8 +141,30 @@ class configuration(stuff_to_do):
             print(os.path.exists(directory))
             if not os.path.exists(directory):
                 os.makedirs(directory)
-                
-       
+        if step['type'] == 'change_add_line':
+            self.change_add_line( step['content']['file'], )
+
+    def change_add_line(self, filename, match_regex,):
+        r = re.compile(match_regex)
+        #temp file
+        fh, abs_path = mkstemp() 
+        with open(abs_path,'w') as new_file:
+            with open(filename) as old_file:
+                for line in old_file:
+                    if r.match(line):
+                        new_file.write(line.replace(pattern, subst))
+    close(fh)
+    #Remove original file
+    remove(file_path)
+    #Move new file
+    move(abs_path, file_path)
+        
+        with fileinput.input(filename, inplace=True) ad file:
+            for line in file:
+                if r.match(line):
+                    print r.sub(r"\1'%s'" %sys.argv[1],line)
+                else:
+
             
     def run_all_steps(self):
         self.check_steps()

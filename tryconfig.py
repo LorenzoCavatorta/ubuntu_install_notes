@@ -23,12 +23,13 @@ all_programs = {
                        'repo' : '\'echo "deb [arch=amd64] http://dl.google.com/linux/musicmanager/deb/ stable main" >> /etc/apt/sources.list.d/google.list\'' ,
                        'repo_add_command' : 'sudo sh -c'},
     'pip'           : {'realname' : 'python-pip'},
-    'dropbox'       : {'repo_prequel' : ['cd ~']
+    'dropbox'       : {'repo_prequel' : ['cd ~'],
                        'repo_add_command' : 'wget -O - ',
                        'repo' : '"https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -',
                        'aka' : '',
                        'is_sudo' : '',
-                       'install_command' : ''
+                       'install_command' : '',
+                       'config': 'dropbox_at_login'
     }
 }
 
@@ -45,8 +46,8 @@ all_configs = {
     'caps2ctrl' : [ {'type':'bash_command', 'content':'setxkbmap -option ctrl:nocaps'} ],
     'rtorrent_setup' : [ {'type':'make_dir', 'content': ['home', 'rDownloads' ]},
                          {'type':'make_dir', 'content': ['home', 'rDownloads','.rSessions' ]}
-    ]
-    
+                       ],
+    'dropbox_at_login' : [ {'type':'change_add_line', 'content':{'file':'/etc/rc.local', 'line':'~/.dropbox-dist/dropboxd'} } ]
 }
 
 
