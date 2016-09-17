@@ -7,6 +7,7 @@ from subprocess import STDOUT, check_call
 
 import pdb
 import os
+import re, tempfile, shutil #for the replace function
 
 class bashcommand:
 
@@ -104,7 +105,7 @@ class program(stuff_to_do):
         if c == defaults['config']:
             return
         else:
-            conf = configuration( c, all_configs[c] )
+            conf = configuration(c)
             conf.run_all_steps()
     
 
@@ -142,28 +143,27 @@ class configuration(stuff_to_do):
             if not os.path.exists(directory):
                 os.makedirs(directory)
         if step['type'] == 'change_add_line':
-            self.change_add_line( step['content']['file'], )
+            self.change_add_line( step['content']['file'], step['content']['regex'], step['content']['newline'])
 
-    def change_add_line(self, filename, match_regex,):
+    def change_add_line(self, filename, match_regex, newline):
         r = re.compile(match_regex)
+        need_to_add = True
         #temp file
-        fh, abs_path = mkstemp() 
+        fh, abs_path = tempfile.mkstemp()
         with open(abs_path,'w') as new_file:
             with open(filename) as old_file:
                 for line in old_file:
                     if r.match(line):
-                        new_file.write(line.replace(pattern, subst))
-    close(fh)
-    #Remove original file
-    remove(file_path)
-    #Move new file
-    move(abs_path, file_path)
+                        new_file.write(r.sub(newline,line))
+                        need_to_add = False
+                    else:
+                        new_file.write(line)
+                if need_to_add:
+                    new_file.write(newline)
+                    new_file.write("\n")
+        os.close(fh)
+        shutil.copy(abs_path, filename)
         
-        with fileinput.input(filename, inplace=True) ad file:
-            for line in file:
-                if r.match(line):
-                    print r.sub(r"\1'%s'" %sys.argv[1],line)
-                else:
 
             
     def run_all_steps(self):
@@ -171,14 +171,17 @@ class configuration(stuff_to_do):
         for s in self.config_dic:
             self.run_step(s)
 
+
+
     
         
 for p in chosen_programs:
+#    pdb.set_trace()
     prog = program(p)
     print(prog.build_install_command())
     prog.install()
 
 for c in chosen_configs:
-    conf = configuration( c )
+    conf = configuration(c)
     conf.run_all_steps()
     

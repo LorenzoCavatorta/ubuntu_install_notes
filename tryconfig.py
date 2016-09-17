@@ -3,10 +3,12 @@
 #chosen_programs = ['emacs', 'audacity', 'mp3_dec', 'pycharm']
 #chosen_programs = ['emacs']
 #chosen_programs = ['emacs', 'pycharm']
-chosen_programs = ['dropbox']
+chosen_programs = ['rtorrent']
 #chosen_programs = ['google_music']
 
-chosen_configs = [ 'caps2ctrl' , 'rtorrent_setup']
+#chosen_configs = [ 'caps2ctrl' , 'rtorrent_setup']
+chosen_configs = [ 'replace_test']
+
 
 all_programs = {
     'emacs'         : {},
@@ -38,16 +40,19 @@ all_programs = {
 #every step is a dic with a standard structure, type of action, actual action
 config_step_types = {'bash_command' : 'single command to run in bash',
                      'copy_file' : 'copy a single file from a location to another',
-                     'change_add_line' : 'changes or adds a line on a specific file',
+                     'change_add_line' : 'changes or adds a line on a specific file', #{'type':'change_add_line', 'content': 'file':'', 'regex':'', 'newline':''}
                      'make_dir' : 'create a directory in a specified subdir'
 }
 
 all_configs = {
     'caps2ctrl' : [ {'type':'bash_command', 'content':'setxkbmap -option ctrl:nocaps'} ],
-    'rtorrent_setup' : [ {'type':'make_dir', 'content': ['home', 'rDownloads' ]},
-                         {'type':'make_dir', 'content': ['home', 'rDownloads','.rSessions' ]}
+    'rtorrent_setup' : [ {'type':'make_dir', 'content': ['home', 'rDownloads']},
+                         {'type':'make_dir', 'content': ['home', 'rDownloads','.rSessions']},
+                         {'type':'change_add_line', 'content': {'file':'/home/lollo/.rtorrent.rc', 'regex':r'^\s*directory\s*=\s*(\/|$|\"|\').*', 'newline':'directory = /home/lollo/rDownloads'}},
+                         {'type':'change_add_line', 'content': {'file':'/home/lollo/.rtorrent.rc', 'regex':r'^\s*session\s*=\s*(\/|$|\"|\').*', 'newline':'session = /home/lollo/rDownloads/.rSessions'}}
                        ],
-    'dropbox_at_login' : [ {'type':'change_add_line', 'content':{'file':'/etc/rc.local', 'line':'~/.dropbox-dist/dropboxd'} } ]
+    'dropbox_at_login' : [ {'type':'change_add_line', 'content':{'file':'/etc/rc.local', 'regex':'.+dropboxd.+', 'newline':'~/.dropbox-dist/dropboxd'} } ],
+    'replace_test' : [{'type':'change_add_line', 'content': {'file':'/home/lollo/tmp/io.test', 'regex':'.+di.+', 'newline':'oddio'} }]
 }
 
 
