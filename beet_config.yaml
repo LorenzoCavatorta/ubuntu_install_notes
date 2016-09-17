@@ -1,9 +1,9 @@
-directory: ~/music
-library: ~/test_musiclibrary.blb
+directory: /media/music
+library: /media/musiclibrary.blb
 
 import:
-   move: no
-   copy: yes
+   move: yes
+   copy: no
    write: yes
 
 
@@ -11,10 +11,17 @@ paths:
    default: $albumartist/[$year] $album%aunique{}/$artist -$track- $title [$bitrate]
    singleton: Non-Album/$artist/$title
    comp: Compilations/$album%aunique{}/$track $title
+art_filename: $artist_$album
 
-plugins: ftintitle
+plugins: ftintitle lastgenre  fetchart #discogs lastimport
 
 ftintitle:
    auto: yes #Enable metadata rewriting during import. Default: yes.
    drop: no  #Remove featured artists entirely instead of adding them to the title field. Default: no.
    format: (ft {0}) #Defines the format for the featuring X part of the new title field. In this format the {0} is used to define where the featured artists are placed. Default: feat. {0}
+
+lastgenre:
+   count: 3 #Number of genres to fetch. Default: 1
+
+#lastimport:
+#   user: about_Lollo
