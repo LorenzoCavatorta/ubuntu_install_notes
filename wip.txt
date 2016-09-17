@@ -1,3 +1,25 @@
+#config varie per rtorrent
+sudo apt-get install rtorrent
+rtorrentrc_loc=~/.rtorrent.rc 
+new_rDownload_dir=/home/lollo/rDownloads
+new_rSession_dir=/home/lollo/rDownloads/.rSession
+mkdir ${new_rDownload_dir}
+mkdir ${new_rSession_dir}
+
+#tweak the config file
+search_string='^directory.*='
+new_string="directory = ${new_rDownload_dir}"
+grep -q ${search_string} ${rtorrentrc_loc} &&  sed -i "s,${search_string}.+$,${new_string},g" ${rtorrentrc_loc} || echo ${new_string} >> ${rtorrentrc_loc}
+
+search_string='^session.*='
+new_string="session = ${new_rSession_dir}"
+grep -q ${search_string} ${rtorrentrc_loc} &&  sed -i "s,${search_string}.+$,${new_string},g" ${rtorrentrc_loc} || echo ${new_string} >> ${rtorrentrc_loc}
+
+#forse altre subst
+#maybe a watch folder
+
+
+
 #possibile fix per spotify, manca ancora una parte finale, non riesce a loggarsi
 
 
