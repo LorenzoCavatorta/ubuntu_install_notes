@@ -174,6 +174,7 @@ class configuration(stuff_to_do):
                     else:
                         new_file.write(line)
                 if need_to_add:
+                    new_file.write("\n")
                     new_file.write(newline)
                     new_file.write("\n")
         os.close(fh)

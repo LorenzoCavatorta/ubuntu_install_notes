@@ -83,9 +83,7 @@ sudo pip install beets
 echo 'eval "$(beet completion)"' >> .bashrc
 #in piu' forse ti serve questo http://bash-completion.alioth.debian.org/
 #plugins
-pip install pylast
-pip install request
-pip install discogs-client
+pip install pylast request discogs-client
 
 # from http://codeinthehole.com/writing/the-most-important-command-line-tip-incremental-history-searching-with-inputrc/
 

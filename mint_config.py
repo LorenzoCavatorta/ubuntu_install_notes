@@ -1,7 +1,7 @@
 #programs = {'em': {'realname':'emacs'} }
 
 #chosen_programs = ['emacs', 'audacity', 'mp3_dec', 'pycharm', 'mp3_dec', 'beets', 'vlc', 'vim', 'gimp', 'pycharm', 'sublime', 'rtorrent', 'pip', 'dropbox', 'google_music']
-chosen_programs = ['chrome']
+chosen_programs = ['pip', 'beets']
 
 chosen_configs = [ 'caps2ctrl' , 'add_media_partition']
 
@@ -11,7 +11,7 @@ all_programs = {
     'vim'           : {},
     'audacity'      : {},
     'mp3_dec'       : {'aka' : 'ffmpeg'},
-    'beets'         : {},
+    'beets'         : {'config' : 'add_beet_plugin_libs'},
     'vlc'           : {},
     'gimp'          : {},
     'pycharm'       : {'aka' : 'pycharm-community', 'repo' : 'ppa:mystic-mirage/pycharm'},
@@ -21,7 +21,7 @@ all_programs = {
                        'repo_prequel' : ['wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - '],
                        'repo' : '\'echo "deb [arch=amd64] http://dl.google.com/linux/musicmanager/deb/ stable main" >> /etc/apt/sources.list.d/google.list\'' ,
                        'repo_add_command' : 'sudo sh -c'},
-    'pip'           : {'realname' : 'python-pip'},
+    'pip'           : {'aka' : 'python-dev python-pip'},
     'dropbox'       : {'repo_prequel' : ['cd ~'],
                        'repo_add_command' : 'wget -O - ',
                        'repo' : '"https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -',
@@ -47,14 +47,25 @@ all_configs = {
     'caps2ctrl' : [ {'type':'bash_command', 'content':'setxkbmap -option ctrl:nocaps'} ],
     'rtorrent_setup' : [ {'type':'make_dir', 'content': ['home', 'rDownloads']},
                          {'type':'make_dir', 'content': ['home', 'rDownloads','.rSessions']},
-                         {'type':'change_add_line', 'content': {'file':'/home/lollo/.rtorrent.rc', 'regex':r'^\s*directory\s*=\s*(\/|$|\"|\').*', 'newline':'directory = /home/lollo/rDownloads'}},
-                         {'type':'change_add_line', 'content': {'file':'/home/lollo/.rtorrent.rc', 'regex':r'^\s*session\s*=\s*(\/|$|\"|\').*', 'newline':'session = /home/lollo/rDownloads/.rSessions'}}
+                         {'type':'change_add_line', 'content': {'file':'/home/lollo/.rtorrent.rc',
+                                                                'regex':r'^\s*directory\s*=\s*(\/|$|\"|\').*',
+                                                                'newline':'directory = /home/lollo/rDownloads'}},
+                         {'type':'change_add_line', 'content': {'file':'/home/lollo/.rtorrent.rc',
+                                                                'regex':r'^\s*session\s*=\s*(\/|$|\"|\').*',
+                                                                'newline':'session = /home/lollo/rDownloads/.rSessions'}}
                        ],
-    'dropbox_at_login' : [ {'type':'change_add_line', 'content':{'file':'/etc/rc.local', 'regex':'.+dropboxd.+', 'newline':'~/.dropbox-dist/dropboxd'} } ],
+    'dropbox_at_login' : [ {'type':'change_add_line', 'content':{'file':'/etc/rc.local',
+                                                                 'regex':'.+dropboxd.+',
+                                                                 'newline':'~/.dropbox-dist/dropboxd'} } ],
     #to check these hardcoded parameters: sudo fdisk -l | grep -i ntfs ; ls -al /dev/disk/by-uuid/
     'add_media_partition' : [ {'type':'make_dir', 'content':['/mediadisk']},
-        {'type': 'change_add_line', 'content': {'file':'/etc/fstab', 'regex':'.*UUID=AA2E6BAF2E6B72ED.*', 'newline':'UUID=AA2E6BAF2E6B72ED            /mediadisk   ntfs  auto            0       0' } }],
-    'replace_test' : [{'type':'change_add_line', 'content': {'file':'/home/lollo/tmp/io.test', 'regex':'.+di.+', 'newline':'oddio'} }]
+                              {'type': 'change_add_line', 'content': {'file':'/etc/fstab',
+                                                                      'regex':'.*UUID=AA2E6BAF2E6B72ED.*',
+                                                                      'newline':'UUID=AA2E6BAF2E6B72ED            /mediadisk   ntfs  auto            0       0' } }],
+    'replace_test' : [{'type':'change_add_line', 'content': {'file':'/home/lollo/tmp/io.test',
+                                                             'regex':'.+di.+',
+                                                             'newline':'oddio'} }],
+    'add_beet_plugin_libs' : [{'type':'bash_command', 'content':'sudo pip install pylast request discogs-client'}] #manca beet completion e moving config file
 }
 
 
