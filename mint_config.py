@@ -1,9 +1,9 @@
 #programs = {'em': {'realname':'emacs'} }
 
 #chosen_programs = ['emacs', 'audacity', 'mp3_dec', 'pycharm', 'mp3_dec', 'beets', 'vlc', 'vim', 'gimp', 'pycharm', 'sublime', 'rtorrent', 'pip', 'dropbox', 'google_music']
-chosen_programs = ['pip', 'beets']
-
-chosen_configs = [ 'caps2ctrl' , 'add_media_partition']
+#chosen_programs = [ 'rtorrent', 'skype']
+chosen_programs = []
+chosen_configs = [ 'caps2ctrl' , 'adjust_file_association']
 
 
 all_programs = {
@@ -31,7 +31,9 @@ all_programs = {
                        'config': 'dropbox_at_login'  },
     'chrome'        : {'aka' : 'google-chrome-stable',
                        'repo_prequel' : 'wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -', #MIGHT NOT BE REQUIRED!
-                       'repo' : 'deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main' }
+                       'repo' : 'deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main' },
+    'skype'         : {},
+    'musescore'     : {}
 }
 
 
@@ -65,9 +67,24 @@ all_configs = {
     'replace_test' : [{'type':'change_add_line', 'content': {'file':'/home/lollo/tmp/io.test',
                                                              'regex':'.+di.+',
                                                              'newline':'oddio'} }],
-    'add_beet_plugin_libs' : [{'type':'bash_command', 'content':'sudo pip install pylast request discogs-client'}] #manca beet completion e moving config file
+    'add_beet_plugin_libs' : [{'type':'bash_command', 'content':'sudo pip install pylast request discogs-client'}], #manca beet completion e moving config file
+    'adjust_file_association' : [ {'type':'change_add_line', 'content': {'file':'/usr/share/applications/defaults.list',
+                                                                'regex':r'.*video.*avi\s*=.*',
+                                                                'newline':'video/x-avi=xplayer.desktop;vlc.desktop'}},
+                                  {'type':'change_add_line', 'content': {'file':'/usr/share/applications/defaults.list',
+                                                                'regex':r'.*video.*mpeg\s*=.*',
+                                                                'newline':'video/mpeg=xplayer.desktop;vlc.desktop'}},
+                                  {'type':'change_add_line', 'content': {'file':'/usr/share/applications/defaults.list',
+                                                                'regex':r'.*video.*ogg\s*=.*',
+                                                                'newline':'video/ogg=xplayer.desktop;vlc.desktop'}},
+                                  {'type':'change_add_line', 'content': {'file':'/usr/share/applications/defaults.list',
+                                                                'regex':r'.*video.*ogg\s*=.*',
+                                                                'newline':'video/mp4=xplayer.desktop;vlc.desktop'}},
+                                  {'type':'change_add_line', 'content': {'file':'/usr/share/applications/defaults.list',
+                                                                'regex':r'.*video.*m4v\s*=.*',
+                                                                'newline':'video/x-m4v=xplayer.desktop;vlc.desktop'}}
+                                  ]    
 }
-
 
 defaults = {'install_command' : 'apt-get -q -y install',
             'is_sudo' : 'sudo',
