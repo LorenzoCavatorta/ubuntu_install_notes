@@ -169,7 +169,20 @@ class configuration(stuff_to_do):
                 os.makedirs(directory)
         if step['type'] == 'change_add_line':
             self.change_add_line( step['content']['file'], step['content']['regex'], step['content']['newline'])
-                        
+            
+    def run_all_steps(self):
+        self.check_steps()
+        for s in self.config_dic:
+            logging.debug('running step   ' + s['type'])
+            self.run_step(s)
+
+
+class change_add_line(configuration):
+    
+    def __init__(self,name):
+        self.name = name
+        super().__init__()
+
     def change_add_line(self, filename, match_regex, newline):
         exist_create_file(filename)
         backup_file(filename)
@@ -191,14 +204,6 @@ class configuration(stuff_to_do):
                     new_file.write("\n")
         os.close(fh)
         shutil.copy(abs_path, filename)
-        
-
-            
-    def run_all_steps(self):
-        self.check_steps()
-        for s in self.config_dic:
-            logging.debug('running step   ' + s['type'])
-            self.run_step(s)
 
 
 
