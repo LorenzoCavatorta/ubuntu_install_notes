@@ -4,7 +4,7 @@
 #chosen_programs = ['emacs', 'audacity', 'mp3_dec', 'pycharm', 'mp3_dec', 'beets', 'vlc', 'vim', 'gimp', 'pycharm', 'sublime', 'rtorrent', 'pip', 'dropbox', 'google_music']
 #chosen_programs = [ 'rtorrent', 'skype']
 chosen_programs = ['beets']
-chosen_configs = [ 'caps2ctrl' , 'lock-screensaver-disable']
+chosen_configs = [ 'caps2ctrl' , 'lock-screensaver-disable', 'add_beet_plugin_libs']
 #chosen_configs = [ 'adjust_file_association']
 
 
@@ -13,7 +13,7 @@ all_programs = {
     'vim'           : {},
     'audacity'      : {},
     'mp3_dec'       : {'aka' : 'ffmpeg'},
-    'beets'         : {'config' : 'add_beet_plugin_libs'},
+    'beets'         : {'config' : 'beet_setup'},
     'vlc'           : {},
     'gimp'          : {},
     'pycharm'       : {'aka' : 'pycharm-community', 'repo' : 'ppa:mystic-mirage/pycharm'},

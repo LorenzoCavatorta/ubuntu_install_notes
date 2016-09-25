@@ -269,19 +269,35 @@ all_configs = {
     'replace_test' : [{'type':change_add_line, 'content': {'file':'/home/lollo/tmp/io.test',
                                                              'regex':'.+di.+',
                                                              'newline':'oddio'} }],
-    'add_beet_plugin_libs' : [{'type':bashcommand, 'content':'pip install pylast request discogs-client'},
-                              {'type':move_file, 'content': {'source_dir': ['bootstrap_folder'], 'filename':'beet_config.yaml', 'target_dir':['usr_home','.config','beets'], 'filename_tgt':'config.yaml'} },
-                              {'type':change_add_line, 'content':{'file':'/home/lollo/.config/beets/config.yaml',
-                                                                  'regex':'^\s*directory:\s*\/',
-                                                                  'newline':'directory: /mediadisk/music'} },
-                              {'type':change_add_line, 'content':{'file':'/home/lollo/.config/beets/config.yaml',
-                                                                  'regex':'^\s*library:\s*\/',
-                                                                  'newline':'library: /mediadisk/musiclibrary.blb'} },
-                              {'type':bashcommand, 'content': 'beet completion >> /home/lollo/.bashrc_aliases'},
-                              {'type':change_add_line ,'content':{'file':'/home/lollo/.bashrc',
-                                                                  'regex':'.*source.*bashrc_alias',
-                                                                  'newline':'if [ -f $HOME/.bashrc_aliases ]; then source $HOME/.bashrc_aliases; fi'} }
-    ], #manca beet completion e moving config file
+    'beet_setup' : #moves file from bootstrap repo to the config folder, changes the locations for media lib and folder [HARDCODED HERE], add completions
+         [{'type':move_file, 'content': {'source_dir': ['bootstrap_folder'],
+                                         'filename':'beet_config.yaml',
+                                         'target_dir':['usr_home','.config','beets'],
+                                         'filename_tgt':'config.yaml'} },
+          {'type':change_add_line, 'content':{'file':'/home/lollo/.config/beets/config.yaml',
+                                              'regex':'^\s*directory:\s*\/',
+                                              'newline':'directory: /mediadisk/music'} },
+          {'type':change_add_line, 'content':{'file':'/home/lollo/.config/beets/config.yaml',
+                                              'regex':'^\s*library:\s*\/',
+                                              'newline':'library: /mediadisk/musiclibrary.blb'} },
+          {'type':bashcommand, 'content': 'beet completion >> /home/lollo/.bashrc_aliases'},
+          {'type':change_add_line ,'content':{'file':'/home/lollo/.bashrc',
+                                              'regex':'.*source.*bashrc_alias',
+                                              'newline':'if [ -f $HOME/.bashrc_aliases ]; then source $HOME/.bashrc_aliases; fi'} }
+         ],
+    'add_beet_plugin_libs' :
+       [  #installing plugins
+           {'type':bashcommand, 'content':'pip install pylast request discogs-client beets-follow'},
+           #https://github.com/geigerzaehler/beets-check
+           {'type':bashcommand, 'content':'pip install git+git://github.com/geigerzaehler/beets-check.git@master'},
+           #adding them to the config
+           {'type':change_add_line, 'content':{'file':'/home/lollo/.config/beets/config.yaml',
+                                               'regex':'^\s*plugins\s*:',
+                                               'newline':'plugins: ftintitle lastgenre check fetchart follow #discogs lastimport'} },
+           {'type':change_add_line, 'content':{'file':'/home/lollo/.config/beets/config.yaml',
+                                               'regex':'^\s*follow\s*:',
+                                               'newline':'follow: \n    email: unbuffocappelloconduepunte@gmail.com \n    password: Dammilamusic4 \n    userid: 0zdhq841u5rev2kpsnphy3i9durvea \n    auto: yes'} }
+       ],
     'adjust_file_association' : [ {'type':change_add_line, 'content': {'file':'/usr/share/applications/defaults.list',
                                                                        'regex':r'.*video.*avi\s*=.*',
                                                                        'newline':'video/x-avi=xplayer.desktop;vlc.desktop'}},
