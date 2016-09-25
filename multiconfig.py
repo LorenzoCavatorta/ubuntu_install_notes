@@ -126,14 +126,12 @@ class program(stuff_to_do):
         else:
             logging.debug('Adding repo   ' + repo)
             pre = self.get_attr('repo_prequel')
-            #pdb.set_trace()
             for c in pre:
                 command = bashcommand(c)
                 command.run
             repo_adder = bashcommand(self.get_attr('repo_add_command'))
             repo_adder + repo
             repo_adder.run()
-            #pdb.set_trace()
             updater = bashcommand(self.get_attr('repo_update_command'))
             updater.run()
 
@@ -212,7 +210,9 @@ class change_add_line():
             with open(filename) as old_file:
                 for line in old_file:
                     if r.match(line):
-                        new_file.write(r.sub(newline,line))
+                        #new_file.write(r.sub(newline,line))
+                        new_file.write(newline)
+                        new_file.write("\n")
                         need_to_add = False
                     else:
                         new_file.write(line)
@@ -229,14 +229,17 @@ class move_file(stuff_to_do):
         self.src_dir_raw = step_content['source_dir']
         self.tgt_dir_raw = step_content['target_dir']
         self.filename = step_content['filename']
+        if 'filename_tgt' in step_content:
+            self.filename_tgt = step_content['filename_tgt']
+        else:
+            self.filename_tgt = self.filename
         super().__init__('folder', default_folders ,defaults)
 
     def run(self):
-        pdb.set_trace()
         self.src_dir = self.build_path(self.src_dir_raw)
         self.tgt_dir = self.build_path(self.tgt_dir_raw)
         src_file_full = os.path.join(self.src_dir, self.filename)
-        tgt_file_full = os.path.join(self.tgt_dir, self.filename)
+        tgt_file_full = os.path.join(self.tgt_dir, self.filename_tgt)
         if not os.path.exists( src_file_full ):
             print('source file not found: %s', src_file_full)
         else:
@@ -267,7 +270,17 @@ all_configs = {
                                                              'regex':'.+di.+',
                                                              'newline':'oddio'} }],
     'add_beet_plugin_libs' : [{'type':bashcommand, 'content':'pip install pylast request discogs-client'},
-                              {'type':move_file, 'content': {'source_dir': ['bootstrap_folder'], 'filename':'config.yaml', 'target_dir':['usr_home','.config','beets']} }
+                              {'type':move_file, 'content': {'source_dir': ['bootstrap_folder'], 'filename':'beet_config.yaml', 'target_dir':['usr_home','.config','beets'], 'filename_tgt':'config.yaml'} },
+                              {'type':change_add_line, 'content':{'file':'/home/lollo/.config/beets/config.yaml',
+                                                                  'regex':'^\s*directory:\s*\/',
+                                                                  'newline':'directory: /mediadisk/music'} },
+                              {'type':change_add_line, 'content':{'file':'/home/lollo/.config/beets/config.yaml',
+                                                                  'regex':'^\s*library:\s*\/',
+                                                                  'newline':'library: /mediadisk/musiclibrary.blb'} },
+                              {'type':bashcommand, 'content': 'beet completion >> /home/lollo/.bashrc_aliases'},
+                              {'type':change_add_line ,'content':{'file':'/home/lollo/.bashrc',
+                                                                  'regex':'.*source.*bashrc_alias',
+                                                                  'newline':'if [ -f $HOME/.bashrc_aliases ]; then source $HOME/.bashrc_aliases; fi'} }
     ], #manca beet completion e moving config file
     'adjust_file_association' : [ {'type':change_add_line, 'content': {'file':'/usr/share/applications/defaults.list',
                                                                        'regex':r'.*video.*avi\s*=.*',
@@ -287,7 +300,9 @@ all_configs = {
     ],
     'pip-upgrade-setup' : [ {'type': bashcommand, 'content':'pip install --upgrade pip'},
                             {'type': bashcommand, 'content':'pip install setuptools'}
-    ]
+    ],
+    'lock-screensaver-disable' : [{'type':bashcommand, 'content':'dconf write /org/gnome/desktop/screensaver/lock-enabled false'}],
+    'lock-screensaver-delay' : [{'type':bashcommand, 'content':'dconf write /org/gnome/desktop/session/idle-delay 600'}] #for 10 mins
 }
 
 

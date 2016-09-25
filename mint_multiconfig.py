@@ -4,7 +4,7 @@
 #chosen_programs = ['emacs', 'audacity', 'mp3_dec', 'pycharm', 'mp3_dec', 'beets', 'vlc', 'vim', 'gimp', 'pycharm', 'sublime', 'rtorrent', 'pip', 'dropbox', 'google_music']
 #chosen_programs = [ 'rtorrent', 'skype']
 chosen_programs = ['beets']
-chosen_configs = [ 'caps2ctrl' ]
+chosen_configs = [ 'caps2ctrl' , 'lock-screensaver-disable']
 #chosen_configs = [ 'adjust_file_association']
 
 
