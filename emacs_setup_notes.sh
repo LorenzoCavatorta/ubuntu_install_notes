@@ -1,11 +1,11 @@
 #small trick on how I got this:
 #history | cut -c 8- | tail -n30 > ~/projects/ubuntu_install_notes/emacs_setup_notes.sh 
 
-
+pip install virtualenvwrapper  
 #ll /usr/bin/python*
 virtualenv -p /usr/bin/python3.4 mymess
 
-cat <<EOF > ~/.bashrc
+cat <<EOF >> ~/.bashrc
 mymess() {
     # Set working directory.
     cd /home/lorenzocavatorta/projects/ubuntu_install_notes/
@@ -47,7 +47,7 @@ pip install yapf
 #M-x package-install RET elpy RET
 #or M-x package-list-packages, navigate to elpy, hit I to select it (pointer on the name), x to install it
 
-cat <<EOF > ~/.emacs
+cat <<EOF >> ~/.emacs
 (package-initialize)
 (elpy-enable)
 EOF
@@ -56,3 +56,16 @@ EOF
 # M-x elpy-config to check what's going on, 
 #in my case the virtual env was not active
 # M-x pyvenv-activate RET ~/.envs/mymess/
+
+
+
+
+
+#################################other stuff
+cat <<EOF >> ~/.emacs
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(load-theme 'deeper-blue t)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+EOF

@@ -3,8 +3,9 @@
 
 #chosen_programs = ['emacs', 'audacity', 'mp3_dec', 'pycharm', 'mp3_dec', 'beets', 'vlc', 'vim', 'gimp', 'pycharm', 'sublime', 'rtorrent', 'pip', 'dropbox', 'google_music']
 #chosen_programs = [ 'rtorrent', 'skype']
-chosen_programs = ['beets']
-chosen_configs = [ 'caps2ctrl' , 'lock-screensaver-disable', 'add_beet_plugin_libs']
+#chosen_programs = ['beets']
+chosen_programs = []
+chosen_configs = [ 'caps2ctrl_perm' ] # , 'lock-screensaver-disable', 'add_beet_plugin_libs']
 #chosen_configs = [ 'adjust_file_association']
 
 
@@ -49,7 +50,10 @@ config_step_types = {'bashcommand' : 'single command to run in bash',
 
 '''
 all_configs = {
-    'caps2ctrl' : [ {'type':bashcommand, 'content':'setxkbmap -option ctrl:nocaps'} ],
+    'caps2ctrl_temp' : [ {'type':'bash_command', 'content':'setxkbmap -option ctrl:nocaps'} ],
+    'caps2ctrl_perm' : [ {'type':'change_add_line', 'content':{'file':'/home/lollo/.profile',
+                                                               'regex':'\s*setxkbmap\s*.*ctrl:nocaps.*',
+                                                               'newline':'setxkbmap -option ctrl:nocaps'} ],
     'rtorrent_setup' : [ {'type':make_dir, 'content': ['home', 'rDownloads']},
                          {'type':make_dir, 'content': ['home', 'rDownloads','.rSessions']},
                          {'type':change_add_line, 'content': {'file':'/home/lollo/.rtorrent.rc',

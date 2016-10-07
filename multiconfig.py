@@ -166,6 +166,7 @@ class configuration(stuff_to_do):
         return
 
     def run_step(self,step):
+        pdb.set_trace()
         single_step = step['type'](step['content'])
         logging.debug('running step   ' + single_step.__class__.__name__)
         single_step.run()
@@ -248,7 +249,10 @@ class move_file(stuff_to_do):
             
         
 all_configs = {
-    'caps2ctrl' : [ {'type':bashcommand, 'content':'setxkbmap -option ctrl:nocaps'} ],
+    'caps2ctrl_temp' : [ {'type':'bash_command', 'content':'setxkbmap -option ctrl:nocaps'} ],
+    'caps2ctrl_perm' : [ {'type':'change_add_line', 'content':{'file' : '/home/lollo/.profile',
+                                                               'regex' : '\s*setxkbmap\s*.*ctrl:nocaps.*',
+                                                               'newline' : 'setxkbmap -option ctrl:nocaps'}} ],
     'rtorrent_setup' : [ {'type':make_dir, 'content': ['usr_home', 'rDownloads']},
                          {'type':make_dir, 'content': ['usr_home', 'rDownloads','.rSessions']},
                          {'type':change_add_line, 'content': {'file':'/home/lollo/.rtorrent.rc',

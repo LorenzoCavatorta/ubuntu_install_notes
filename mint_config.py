@@ -1,10 +1,11 @@
-#programs = {'em': {'realname':'emacs'} }
+n#programs = {'em': {'realname':'emacs'} }
 
 #chosen_programs = ['emacs', 'audacity', 'mp3_dec', 'pycharm', 'mp3_dec', 'beets', 'vlc', 'vim', 'gimp', 'pycharm', 'sublime', 'rtorrent', 'pip', 'dropbox', 'google_music']
 #chosen_programs = [ 'rtorrent', 'skype']
 chosen_programs = []
 #chosen_configs = [ 'caps2ctrl' , 'adjust_file_association']
-chosen_configs = [ 'adjust_file_association']
+#chosen_configs = [ 'adjust_file_association']
+chosen_configs = [ 'caps2ctrl_perm']
 
 
 all_programs = {
@@ -47,7 +48,10 @@ config_step_types = {'bash_command' : 'single command to run in bash',
 }
 
 all_configs = {
-    'caps2ctrl' : [ {'type':'bash_command', 'content':'setxkbmap -option ctrl:nocaps'} ],
+    'caps2ctrl_temp' : [ {'type':'bash_command', 'content':'setxkbmap -option ctrl:nocaps'} ],
+    'caps2ctrl_perm' : [ {'type':'change_add_line', 'content':{'file':'/home/lollo/.profile',
+                                                               'regex':'\s*setxkbmap\s*.*ctrl:nocaps.*',
+                                                               'newline':'setxkbmap -option ctrl:nocaps'} ],
     'rtorrent_setup' : [ {'type':'make_dir', 'content': ['home', 'rDownloads']},
                          {'type':'make_dir', 'content': ['home', 'rDownloads','.rSessions']},
                          {'type':'change_add_line', 'content': {'file':'/home/lollo/.rtorrent.rc',
